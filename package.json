@@ -1,0 +1,16 @@
+{
+  "name": "libswu-face-scale",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start_cl": "cd ./cl && npm i && npm run dev",
+    "start_okl": "cd ./okl && npm i && npm run dev",
+    "build_cl": "cd ./cl && npm i && npm run build",
+    "build_okl": "cd ./okl && npm i && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
