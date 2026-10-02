@@ -6,7 +6,8 @@ import axios from "axios";
 const baseURL = "https://libportal.swu.ac.th/feedback/rating";
 
 const Result = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  //const { currentUser } = useSelector((state) => state.user);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const navigate = useNavigate();
   const [total, setTotal] = useState([]);
   const [service, setService] = useState([]);

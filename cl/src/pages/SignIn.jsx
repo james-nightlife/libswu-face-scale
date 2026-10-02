@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
@@ -10,6 +10,12 @@ const SignIn = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if(localStorage.getItem('currentUser')){
+      navigate('/')
+    }
+  })
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });

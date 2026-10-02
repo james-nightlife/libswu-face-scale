@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setRating } from "../redux/user/userSlice";
 import axios from "axios";
+import { QRCodeSVG } from 'qrcode.react'
 
 import img1 from "../images/img1.jpg";
 import img2 from "../images/img2.jpg";
@@ -16,6 +17,19 @@ import img5 from "../images/img5.jpg";
 import libbibiwave from "../assets/gif/พี่นกฮูกโบกมือ.gif";
 import libbibihello from "../assets/gif/พี่นกฮูกสวัสดี.gif";
 
+const staff = [
+  {
+    username: 'sutthiphong',
+    name: 'สุทธิพงศ์',
+    image: 'https://lib.swu.ac.th/wp-content/uploads/2025/08/sutthiphong_50th.jpg'
+  },
+  {
+    username: 'songyot',
+    name: 'ทรงยศ',
+    image: 'https://lib.swu.ac.th/wp-content/uploads/2025/08/songyot_50th.jpg'
+  }
+]
+
 const Form = () => {
   //const { currentUser, service, serviceName, serviceNameEN } = useSelector((state) => state.user);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -26,6 +40,8 @@ const Form = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const user = staff.find((x) => x.username === currentUser?.username)
+
   useEffect(() => {
     if (!currentUser) {
       navigate("/sign-in");
@@ -33,25 +49,26 @@ const Form = () => {
   });
 
   const handleClick = (rate) => {
-    Swal.fire({
-      title: rate,
-      text: "Confirm rating!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Confirm",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
+    try{
+      dispatch(setRating(rate));
+      //alert(rate)
+      seveRating(rate);
+      return Swal.fire({
           title: "ขอบคุณค่ะ",
           text: "Thank You.",
           icon: "success",
+          timer: '3000',
+          showConfirmButton: false
         });
-        dispatch(setRating(rate));
-        seveRating(rate);
-      }
-    });
+    }catch(e){
+      return Swal.fire({
+          title: "เกิดปัญหาทางเทคนิค",
+          text: "Technical Fault",
+          icon: 'error',
+          timer: '3000',
+          showConfirmButton: false
+        });
+    }
   };
 
   const seveRating = async (number) => {
@@ -73,7 +90,21 @@ const Form = () => {
 
   return (
     <div className="max-w-6xl p-3 mx-auto">
-      <div className="flex flex-col items-center my-10">
+      <div className="flex gap-4">
+        <div className="p-4 content-center text-center flex flex-col gap-4">
+          <QRCodeSVG 
+            value={'https://forms.gle/tLAGUKT716QYhUqk9'} />
+          <p>ข้อเสนอแนะเพิ่มเติม</p>
+        </div>
+        <div className="p-4 flex-1 content-center text-center">
+          <p className="text-[80px]">{user?.name}</p>
+        </div>
+        <div className="p-4 w-40 content-center text-center">
+          <img src={user?.image} />
+        </div>
+      </div>
+      <div>
+        <div className="flex flex-col items-center my-10">
         <div className="text-2xl font-semibold mt-5 md:text-3xl">
           กรุณาให้คะแนนความพึงพอใจการใช้บริการห้องสมุดดิจิทัล
         </div>
@@ -133,8 +164,12 @@ const Form = () => {
           <div className="text-red-700 font-semibold">Very Poor</div>
         </div>
       </div>
-      <img className="fixed bottom-4 left-4 h-[200px] sm:h-[50vh]" src={libbibihello} />
-      <img className="fixed bottom-4 right-4 h-[200px] sm:h-[50vh]" src={libbibiwave} />
+      
+      {//<img className="fixed bottom-4 left-4 h-[200px] sm:h-[50vh]" src={libbibihello} />
+      //<img className="fixed bottom-4 right-4 h-[200px] sm:h-[50vh]" src={libbibiwave} />
+      }
+      </div>
+      
     </div>
   );
 };
