@@ -16,19 +16,7 @@ import img5 from "../images/img5.jpg";
 /** ADDED BY JAMES */
 import libbibiwave from "../assets/gif/พี่นกฮูกโบกมือ.gif";
 import libbibihello from "../assets/gif/พี่นกฮูกสวัสดี.gif";
-
-const staff = [
-  {
-    username: 'sutthiphong',
-    name: 'สุทธิพงศ์',
-    image: 'https://lib.swu.ac.th/wp-content/uploads/2025/08/sutthiphong_50th.jpg'
-  },
-  {
-    username: 'songyot',
-    name: 'ทรงยศ',
-    image: 'https://lib.swu.ac.th/wp-content/uploads/2025/08/songyot_50th.jpg'
-  }
-]
+import staff from '../assets/staff.json'
 
 const Form = () => {
   //const { currentUser, service, serviceName, serviceNameEN } = useSelector((state) => state.user);
@@ -46,12 +34,11 @@ const Form = () => {
     if (!currentUser) {
       navigate("/sign-in");
     }
-  });
+  }, []);
 
   const handleClick = (rate) => {
     try{
       dispatch(setRating(rate));
-      //alert(rate)
       seveRating(rate);
       return Swal.fire({
           title: "ขอบคุณค่ะ",
@@ -61,6 +48,7 @@ const Form = () => {
           showConfirmButton: false
         });
     }catch(e){
+      console.error(e)
       return Swal.fire({
           title: "เกิดปัญหาทางเทคนิค",
           text: "Technical Fault",
@@ -83,8 +71,8 @@ const Form = () => {
         "https://libportal.swu.ac.th/feedback/rating/score",
         rate
       );
-    } catch (error) {
-      console.log(error.response);
+    } catch (e) {
+      console.error(e.response || e.message);
     }
   };
 
@@ -164,12 +152,10 @@ const Form = () => {
           <div className="text-red-700 font-semibold">Very Poor</div>
         </div>
       </div>
-      
+      </div>
       {//<img className="fixed bottom-4 left-4 h-[200px] sm:h-[50vh]" src={libbibihello} />
       //<img className="fixed bottom-4 right-4 h-[200px] sm:h-[50vh]" src={libbibiwave} />
       }
-      </div>
-      
     </div>
   );
 };

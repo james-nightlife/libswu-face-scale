@@ -7,9 +7,13 @@ const SignOut = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(signOut());
+    //dispatch(signOut());
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("currentService");
+    localStorage.removeItem("currentServiceName");
+    localStorage.removeItem("currentServiceNameEN");
     <Navigate to="/sign-in" />;
-  });
+  }, [dispatch]);
   return <div>SignOut</div>;
 };
 

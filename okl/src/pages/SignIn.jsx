@@ -11,9 +11,15 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+      if(localStorage.getItem('currentUser')){
+        navigate('/')
+      }
+    }, [])
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
-    setSignInError(false);
+    //setSignInError(false);
   };
 
   const handleSubmit = async (e) => {
@@ -23,7 +29,7 @@ const SignIn = () => {
       .post("https://libportal.swu.ac.th/user/login", formData)
       .then((response) => {
         const newUser = {
-          username: formData.username,
+          username: formData.username.trim().toLowerCase(),
           fullname: response.data.fullname,
           token: response.data.token,
         };
@@ -32,11 +38,12 @@ const SignIn = () => {
         localStorage.setItem("currentUser", JSON.stringify(newUser));
         navigate("/service");
       })
-      .catch((error) => {
-        if (error.response) {
+      .catch((e) => {
+        console.log(e.response || e.message);
+        alert(e.response.data.message || 'เกิดเหตุขัดข้องทางเทคนิค')
+        /*if (e.response) {
           setSignInError(true);
-          console.log(error.response);
-        }
+        }*/
       });
   };
 
@@ -63,7 +70,8 @@ const SignIn = () => {
         </button>
       </form>
       <p className="mt-5 text-red-700">
-        {signInError ? "Username or password is incorrect." : ""}
+        {//signInError ? "Username or password is incorrect." : ""
+        }
       </p>
     </div>
   );

@@ -19,7 +19,7 @@ const Service = () => {
     if (!currentUser) {
       navigate("/sign-in");
     }
-  });
+  }, []);
 
   const options = [
     {

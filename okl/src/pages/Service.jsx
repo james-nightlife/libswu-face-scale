@@ -16,10 +16,10 @@ const Service = () => {
   const [selectServiceNameEN, setSelectServiceNameEN] = useState(null);
 
   useEffect(() => {
-    if (!currentUser) {
-      navigate("/sign-in");
-    }
-  });
+      if (!currentUser) {
+        navigate("/sign-in");
+      }
+    }, []);
 
   const options = [
     {

@@ -6,7 +6,8 @@ import axios from "axios";
 const baseURL = "https://libportal.swu.ac.th/feedback/rating";
 
 const Result = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  //const { currentUser } = useSelector((state) => state.user);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const navigate = useNavigate();
   const [total, setTotal] = useState([]);
   const [service, setService] = useState([]);
@@ -19,8 +20,8 @@ const Result = () => {
         .then((response) => {
           setTotal(response.data);
         })
-        .catch((error) => {
-          console.log(error.message);
+        .catch((e) => {
+          console.error(e.response || e.message);
         });
     };
 
@@ -31,8 +32,8 @@ const Result = () => {
           const serviceItems = response.data.sort((a, b) => b.count - a.count);
           setService(serviceItems);
         })
-        .catch((error) => {
-          console.log(error.message);
+        .catch((e) => {
+          console.error(e.response || e.message);
         });
     };
 
@@ -43,8 +44,8 @@ const Result = () => {
           const userItems = response.data.sort((a, b) => b.count - a.count);
           setUser(userItems);
         })
-        .catch((error) => {
-          console.log(error.message);
+        .catch((e) => {
+          console.error(e.response || e.message);
         });
     };
 
@@ -57,9 +58,9 @@ const Result = () => {
     }
   }, []);
 
-  console.log(total);
-  console.log(service);
-  console.log(user);
+  //console.log(total);
+  //console.log(service);
+  //console.log(user);
   return (
     <div>
       <div className="mx-auto max-w-2xl text-center mt-10">
