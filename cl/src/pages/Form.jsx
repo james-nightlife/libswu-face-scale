@@ -81,7 +81,7 @@ const Form = () => {
       <div className="flex gap-4">
         <div className="p-4 content-center text-center flex flex-col gap-4">
           <QRCodeSVG 
-            value={'https://forms.gle/tLAGUKT716QYhUqk9'} />
+            value={'https://forms.gle/5WHjf2VTwjJucQcW8'} />
           <p>ข้อเสนอแนะเพิ่มเติม</p>
         </div>
         <div className="p-4 flex-1 content-center text-center">
